@@ -4,7 +4,7 @@ import ch.aplu.turtle.*;
 import java.awt.*;
 
 public class Limb implements Pivotable {
-    private int length = 50;
+    private int length = 50; //This is just an arbitrary length, can be set by the AI later.
     double angle = 180; // The turtle originally faced north by default, this offset is used to make it face south by default.
     private Movement movement;
     private Turtle turtle;
@@ -41,12 +41,12 @@ public class Limb implements Pivotable {
         }
 
         Point tempDeltaPoint = deltaProject();
-        double angle = tempDeltaPoint.y / tempDeltaPoint.x;
+        double tempAngle = tempDeltaPoint.y / tempDeltaPoint.x;
         Point interruptedEndPoint = new Point(expectedMoveEndPoint);
 
         if (interruptedEndPoint.y < 0 ) {
             interruptedEndPoint.y = 0;
-            interruptedEndPoint.x = (int)( - (1 / angle) * endPoint.x);
+            interruptedEndPoint.x = (int)( - (1 / tempAngle) * endPoint.x);
         }
 
         if (interruptedEndPoint.x > goal) {
@@ -56,7 +56,7 @@ public class Limb implements Pivotable {
         return interruptedEndPoint;
     }
 
-    //TODO: As linearCollision, although with the interruptedEndPoint calculated using a sinus function and limb length rather than delta x and y.
+    //TODO: As linearCollision, although with the interruptedEndPoint calculated using a sinusoidal function, and limb length, rather than delta x and y.
     public Point curvedCollision (Point expectedMoveEndPoint) {
         Point interruptedEndPoint = null;
 
