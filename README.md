@@ -27,7 +27,7 @@ The rules of physics followed by the creatures of this world are:
   - The position of the creature centrepoint does count for calculation of the creatures viability though.
  
  Potential improvements (beyond just implementing the unimplemented stuff):
-  - The second to last law of physics of this world (creature centrepoints cannot collide with the ground) could rather elegantly be resolved by making an interface called "Collidable" (or somesuch) and implementing that interface in both the Creature and Limb classes (Currently the Limb class is the only one to have collision detection (via a method called collision()).)
+  - The second to last law of physics of this world (creature centrepoints cannot collide with the ground) could rather elegantly be resolved by making an interface called "Collidable" (or somesuch) and implementing that interface in both the Creature and Limb classes (Currently the Limb class is the only one to have collision detection (via couple of different methods depending on which type of movement is attempted).)
   - If you wanted to improve multi-threaded performance you could make the limbs runnable, since they're completely independent from each other, excepting whichever limb is anchored at the beginning of the turn. This would cause problems with thread-safe behaviour regarding the new anchorings of limbs during a turn; you could, however, simply replace the old anchoring procedure with check once all limbs of a creature are done moving and swap the anchor to whichever one is the furthest along in the x-axis.
 
 
