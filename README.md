@@ -8,8 +8,11 @@ Not yet funtional; main things remaining to implement:
   - Although everything is written to work in the turtle framework, no drawing is being done yet.
   - AI.
   - General bugtesting.
+  - Completing the partially complete collision detection system in Limb.
+  - Implementing the move() method in Limb; most support methods (except the point directly above) are complete.
+  - Implementing the runnable portion of World.
  
-What IS done is the basic structure and methods of all non-AI classes (excepting graphics); mainly concerning itself with the basic data structure, and physics of the world, and the creatures inhabiting it.
+What IS done is most of the basic structure and methods of all non-AI classes (excepting graphics); mainly concerning itself with the basic data structure, the physics of the world, and the creatures inhabiting it.
 
 The rules of physics followed by the creatures of this world are:
   - Fall until an endpoint of a limb touches the ground.
