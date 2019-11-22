@@ -19,6 +19,7 @@ public class Limb implements Pivotable {
         this.goal = goal;
     }
 
+    //TODO: This method is to move the active limb as far as possible, within the limits given by its movement, before a collision occurs.
     public void move() {
 
     }
@@ -35,26 +36,27 @@ public class Limb implements Pivotable {
     // from endPoint to expectedMovePoint results in a collision with the x-axis or the goal,
     // returns the expectedMovePoint if there was no collision limiting the movement.
     public Point linearCollision (Point expectedMoveEndPoint) {
-        if ((expectedMoveEndPoint.x > 0) && (expectedMoveEndPoint.y < goal)) {
+        if ((expectedMoveEndPoint.y > 0) && (expectedMoveEndPoint.x <= goal)) {
             return expectedMoveEndPoint;
         }
 
         Point tempDeltaPoint = deltaProject();
-        double angle = tempDeltaPoint.x / tempDeltaPoint.y;
+        double angle = tempDeltaPoint.y / tempDeltaPoint.x;
         Point interruptedEndPoint = new Point(expectedMoveEndPoint);
 
-        if (expectedMoveEndPoint.x < 0 ) {
-
+        if (interruptedEndPoint.y < 0 ) {
+            interruptedEndPoint.y = 0;
+            interruptedEndPoint.x = (int)( - (1 / angle) * endPoint.x);
         }
 
-        if (expectedMoveEndPoint.y > goal) {
-
+        if (interruptedEndPoint.x > goal) {
+            //TODO: Basically the same as above, except for the other axis.
         }
 
         return interruptedEndPoint;
     }
 
-    //As linearCollision, although with the interruptedEndPoint calculated using a sinus function and limb length rather than delta x and y.
+    //TODO: As linearCollision, although with the interruptedEndPoint calculated using a sinus function and limb length rather than delta x and y.
     public Point curvedCollision (Point expectedMoveEndPoint) {
         Point interruptedEndPoint = null;
 

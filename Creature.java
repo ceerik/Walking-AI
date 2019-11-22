@@ -33,6 +33,8 @@ public class Creature implements Runnable {
         this(turtleFrame, pivot, defaultLimbs, gravity, world);
     }
 
+    //TODO: Add a check for whether a limb of the creature has reached the goal (collided with the edge of the window in the positive x-axis,
+    // as defined by the coordinate system of the turtle class.)
     @Override
     public void run() {
         fallByGravity();
