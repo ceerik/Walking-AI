@@ -1,6 +1,6 @@
 # Walking-AI
 
-A program where an AI controls the movement of n-limbed star-shaped creatures to make them move as far across the screen as possible.
+A Java program where an AI controls the movement of n-limbed star-shaped creatures to make them move as far across the screen as possible.
 
 With a simple graphical representation using ch.aplu.turtle.
 
