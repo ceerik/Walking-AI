@@ -11,6 +11,7 @@ Not yet funtional; main things remaining to implement:
   - Completing the partially complete collision detection system in Limb.
   - Implementing the move() method in Limb; most support methods (except the point directly above) are complete.
   - Implementing the runnable portion of World.
+  - Creating a Main() method.
  
 What IS done is most of the basic structure and methods of all non-AI classes (excepting graphics); mainly concerning itself with the basic data structure, the physics of the world, and the creatures inhabiting it.
 
