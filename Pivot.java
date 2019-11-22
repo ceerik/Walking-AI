@@ -5,7 +5,7 @@ import java.awt.*;
 public class Pivot extends Point{
     private Point location;
     private double angle;
-    private static final Point defaultLocation = new Point(0,0);
+    private static final Point defaultLocation = new Point(0,100);
     private static final double defaultAngle = 180;
 
     public Pivot () {

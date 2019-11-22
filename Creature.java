@@ -1,7 +1,6 @@
 package com.company;
 
 import ch.aplu.turtle.*;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -12,21 +11,26 @@ public class Creature implements Runnable {
     private static final int defaultLimbs = 2;
     private int moves = 100;
     private boolean done = false;
-    private int result;
+    private int valueResult;
+    private int timeResult;
     private Point gravity;
     private Point origin;
+    private World world;
 
-    public Creature(TurtleFrame turtleFrame, Pivot pivot, int limbs, Point gravity){
+    public Creature(TurtleFrame turtleFrame, Pivot pivot, int limbs, Point gravity, World world){
         for(int i = 0; i < limbs; i++){
-            this.limbs.add(new Limb(turtleFrame, pivot.getLocation()));
+            this.limbs.add(new Limb(turtleFrame, pivot.getLocation(), world.x2));
         }
         this.pivot = pivot;
         this.origin = new Point(pivot);
         this.gravity = gravity;
+        this.world = world;
+        this.valueResult = 0;
+        this.timeResult = Integer.MAX_VALUE;
     }
 
-    public Creature(TurtleFrame turtleFrame, Pivot pivot, Point gravity){
-        this(turtleFrame, pivot, defaultLimbs, gravity);
+    public Creature(TurtleFrame turtleFrame, Pivot pivot, Point gravity, World world){
+        this(turtleFrame, pivot, defaultLimbs, gravity, world);
     }
 
     @Override
@@ -40,11 +44,11 @@ public class Creature implements Runnable {
             moves--;
         }
 
-        result = pivot.x;
+        valueResult = pivot.x;
 
         for (Limb limb : limbs) {
-            if (limb.getEndPoint().x > result) {
-                result = limb.getEndPoint().x;
+            if (limb.getEndPoint().x > valueResult) {
+                valueResult = limb.getEndPoint().x;
             }
         }
 
@@ -75,7 +79,7 @@ public class Creature implements Runnable {
 
         for (Limb limb : limbs) {
             if (!limb.isAnchored()) {
-                Point tempDelta = new Point(limb.collision(delta));
+                Point tempDelta = new Point(limb.linearCollision(delta));
                 if (tempDelta.y < maxDelta.y) {
                     maxDelta = tempDelta;
                     collider = limb;

@@ -1,7 +1,6 @@
 package com.company;
 
 import ch.aplu.turtle.TurtleFrame;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public class World implements Runnable {
         origin.y = - ((int)tempDimension.getHeight() / 2);
         this.gravity = gravity;
         for(int i = 0; i < population; i++){
-            inhabitants.add(new Creature(turtleFrame, new Pivot(origin), gravity));
+            inhabitants.add(new Creature(turtleFrame, new Pivot(origin), gravity, this));
         }
     }
 

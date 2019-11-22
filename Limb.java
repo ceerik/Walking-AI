@@ -1,33 +1,29 @@
 package com.company;
 
-
-
 import ch.aplu.turtle.*;
-
 import java.awt.*;
 
 public class Limb implements Pivotable {
     private int length = 50;
-    double angle = 180;
+    double angle = 180; // The turtle originally faced north by default, this offset is used to make it face south by default.
     private Movement movement;
     private Turtle turtle;
     private Point originPoint;
     private Point endPoint;
     private boolean anchored = false;
+    final int goal;
 
-    public Limb(TurtleFrame turtleFrame){
+    public Limb (TurtleFrame turtleFrame, Point originPoint, int goal){
         this.turtle = new Turtle(turtleFrame, false);
-    }
-
-    public Limb (TurtleFrame turtleFrame, Point originPoint){
-        this(turtleFrame);
         this.originPoint = originPoint;
+        this.goal = goal;
     }
 
     public void move() {
 
     }
 
+    //Moves the entire limb (both origin and end) by a given delta.
     public void deltaMove(Point delta){
         originPoint.x += delta.x;
         originPoint.y += delta.y;
@@ -35,13 +31,37 @@ public class Limb implements Pivotable {
         endPoint.y += delta.y;
     }
 
-    public Point collision (Point expectedMoveEndPoint){
+    //Returns the maximum delta before the linear movement (simple delta x and y, rather than using the angle and length of the limb)
+    // from endPoint to expectedMovePoint results in a collision with the x-axis or the goal,
+    // returns the expectedMovePoint if there was no collision limiting the movement.
+    public Point linearCollision (Point expectedMoveEndPoint) {
+        if ((expectedMoveEndPoint.x > 0) && (expectedMoveEndPoint.y < goal)) {
+            return expectedMoveEndPoint;
+        }
+
+        Point tempDeltaPoint = deltaProject();
+        double angle = tempDeltaPoint.x / tempDeltaPoint.y;
+        Point interruptedEndPoint = new Point(expectedMoveEndPoint);
+
+        if (expectedMoveEndPoint.x < 0 ) {
+
+        }
+
+        if (expectedMoveEndPoint.y > goal) {
+
+        }
+
+        return interruptedEndPoint;
+    }
+
+    //As linearCollision, although with the interruptedEndPoint calculated using a sinus function and limb length rather than delta x and y.
+    public Point curvedCollision (Point expectedMoveEndPoint) {
         Point interruptedEndPoint = null;
 
         return interruptedEndPoint;
     }
 
-    public void setOriginPoint(Point originPoint) {
+    public void setOriginPoint (Point originPoint) {
         this.originPoint = originPoint;
     }
 
@@ -72,13 +92,22 @@ public class Limb implements Pivotable {
         return anchored;
     }
 
-    //This method "projects" the next move of the limb, and returns the maximum possible movement within the range of the standard movement for this limb, as dictated by the limits in terms of collisions.
+    //This method "projects" the next move of the limb, and returns the expected movement.
     public Point deltaProject() {
-        return new Point();
+        Point returnPoint = new Point();
+        Point tempPoint = new Point(project());
+        returnPoint.x = tempPoint.x - endPoint.x;
+        returnPoint.y = tempPoint.y - endPoint.y;
+        return returnPoint;
     }
 
+    //This method projects the next move of the limb, and returns the expected endPoint;
     public Point project() {
-        return new Point();
+        Point tempPoint = new Point();
+        double newAngle = movement.project(angle);
+        tempPoint.x = (int)(length * Math.sin(newAngle));
+        tempPoint.y = (int)(length * Math.cos(newAngle));
+        return tempPoint;
     }
 
     public void setMovement(Movement movement) {
